@@ -84,7 +84,7 @@ class Sensor:
 @click.command()
 @click.argument('room', type=click.STRING)
 @click.argument('port', type=click.INT)
-@click.option('--wait', '-w', type=click.Int, default=10,
+@click.option('--wait', '-w', type=click.INT, default=10,
               help='Waiting time between sensor reads')
 def main(room: str, port: int, wait: int):
     """Monitor airquality
