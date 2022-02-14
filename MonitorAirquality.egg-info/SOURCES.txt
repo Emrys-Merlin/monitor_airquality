@@ -1,0 +1,6 @@
+setup.py
+MonitorAirquality.egg-info/PKG-INFO
+MonitorAirquality.egg-info/SOURCES.txt
+MonitorAirquality.egg-info/dependency_links.txt
+MonitorAirquality.egg-info/entry_points.txt
+MonitorAirquality.egg-info/top_level.txt

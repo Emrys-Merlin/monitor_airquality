@@ -1,0 +1,2 @@
+[console_scripts]
+monitor_airquality = monitor_airquality.main:main

@@ -1,0 +1,4 @@
+click
+mh_z19
+prometheus-client
+-e Adafruit_Python_BMP
