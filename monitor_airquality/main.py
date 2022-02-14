@@ -7,6 +7,8 @@ import mh_z19
 from Adafruit_BMP.BMP085 import BMP085
 from prometheus_client import Gauge, start_http_server
 
+log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+logging.basicConfig(level=logging.INFO, format=log_fmt)
 logger = logging.getLogger(__name__)
 
 
@@ -114,6 +116,4 @@ def main(room: str, port: int, wait: int):
 
 
 if __name__ == "__main__":
-    log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-    logging.basicConfig(level=logging.INFO, format=log_fmt)
     main()
