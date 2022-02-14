@@ -28,7 +28,7 @@ class Sensor:
         self.bmp = BMP085()
 
         self.co2_gauge = Gauge(
-            'co2_gauge_ppm'
+            'co2_gauge_ppm',
             'MH-Z19 CO2 sensor',
             ['room', 'device_name', 'device_type']
             )
