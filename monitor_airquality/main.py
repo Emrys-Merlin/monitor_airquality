@@ -72,7 +72,7 @@ class Sensor:
         ).set(temp)
         res['temperature'] = temp
 
-        press = self.bmp.read_pressure()
+        press = self.bmp.read_pressure() / 1000
         self.press_gauge.labels(
             room=self.room,
             device_name=self.temp_device,
