@@ -53,32 +53,33 @@ class Sensor:
         Dict[str, float]
             Dict containing CO2 concentration, airpressure, and temperature
         """
-
-        res = {}
-
         co2 = mh_z19.read_co2valueonly()
+        temp = self.bmp.read_temperature()
+        press = self.bmp.read_pressure() / 1000
+
+        res = dict(
+            co2=co2,
+            temperature=temp,
+            pressure=press
+        )
+
         self.co2_gauge.labels(
             room=self.room,
             device_name=self.co2_device,
             device_type=self.co2_device,
         ).set(co2)
-        res['co2'] = co2
 
-        temp = self.bmp.read_temperature()
         self.temp_gauge.labels(
             room=self.room,
             device_name=self.temp_device,
             device_type=self.temp_device,
         ).set(temp)
-        res['temperature'] = temp
 
-        press = self.bmp.read_pressure() / 1000
         self.press_gauge.labels(
             room=self.room,
             device_name=self.temp_device,
             device_type=self.temp_device,
         ).set(press)
-        res['pressure'] = press
 
         return res
 
