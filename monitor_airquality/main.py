@@ -15,17 +15,20 @@ logger = logging.getLogger(__name__)
 class Sensor:
     """Encapsulate MH-Z19 and SMB180 sensor
     """
-    def __init__(self, room: str):
+    def __init__(self, room: str, temp_offset: float = 0.):
         """Initialize sensor object
 
         Parameters
         ----------
         room : str
             Location of the sensor
+        temp_offset : float
+            Correction offset for temperature measurement
         """
         self.room = room
         self.co2_device = 'MH-Z19'
         self.temp_device = 'SMB180'
+        self.temp_offset = temp_offset
 
         self.bmp = BMP085()
 
@@ -56,7 +59,7 @@ class Sensor:
             Dict containing CO2 concentration, airpressure, and temperature
         """
         co2 = mh_z19.read_co2valueonly()
-        temp = self.bmp.read_temperature()
+        temp = self.bmp.read_temperature() + self.temp_offset
         press = self.bmp.read_pressure() / 1000
 
         res = dict(
@@ -91,7 +94,11 @@ class Sensor:
 @click.argument('port', type=click.INT)
 @click.option('--wait', '-w', type=click.INT, default=10,
               help='Waiting time between sensor reads')
-def main(room: str, port: int, wait: int):
+@click.option(
+    '--temp_offset', '-t', type=float, default=0.,
+    help='Set temperature offset'
+)
+def main(room: str, port: int, wait: int, temp_offset: float):
     """Monitor airquality
 
     Script to read CO2 concentration, temperature, and airpressure
@@ -106,10 +113,12 @@ def main(room: str, port: int, wait: int):
         Port where measurements are exposed
     wait : int
         Waiting time between sensor readouts
+    temp_offset : float
+        Offset for temperature measurements
     """
     start_http_server(port)
 
-    sensor = Sensor(room)
+    sensor = Sensor(room, temp_offset=temp_offset)
 
     while True:
         res = sensor.read()
