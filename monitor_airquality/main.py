@@ -45,6 +45,8 @@ class Sensor:
             ['room', 'device_name', 'device_type']
             )
 
+        mh_z19.abc_off()
+
     def read(self) -> Dict[str, float]:
         """Read sensor values
 
